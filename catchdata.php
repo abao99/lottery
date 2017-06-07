@@ -1,7 +1,7 @@
 <?php
-//$url = "http://www.kufa88.com/Promotion/jingcai"; //足球
+$url = "http://www.kufa88.com/Promotion/jingcai"; //足球
 //$url = "http://localhost/source3.html"; //NBA
-$url = "http://localhost/source4.html"; //足球
+//$url = "http://localhost/source4.html"; //足球
 $arr= file_get_contents($url); //抓網站內容到變數
 
 //取消換行
@@ -27,8 +27,6 @@ for($i=1; $i<=count($date[1]); $i++) {
 
 }
 
-
-
 function game($game,$d){
 		$count1 =count($game[1]);
     $count2 = $count1-1;
@@ -39,10 +37,17 @@ function game($game,$d){
 
 
 	for($i=0;$i<$count1;$i++){	//$i 第幾場賽事
-
+    
 		//抓賽事,存到 data[] 
-		preg_match_all('/color: #ffffff">(.*?)<\/span><\/td>/',$game[1][$i],$race,PREG_PATTERN_ORDER);
-		$data[$d][$i]["race"]=$race[1][0];
+		preg_match_all('/color: #ffffff\'>(.*?)<\/span><\/td>/',$game[1][$i],$race,PREG_PATTERN_ORDER);
+    if(isset($race[1][0])){
+      $data[$d][$i]["race"]=$race[1][0];
+    }
+    else{
+      preg_match_all('/color: #FFFFFF\'>(.*?)<\/span><\/td>/',$game[1][$i],$race,PREG_PATTERN_ORDER);
+      $data[$d][$i]["race"]=$race[1][0];
+    }
+		
 		
 		//抓主隊
 		preg_match_all('/<span class="ht">(.*)<\/span>vs/',$game[1][$i],$host,PREG_PATTERN_ORDER);
@@ -125,13 +130,13 @@ function game($game,$d){
         
         $result = mysqli_query($link,$sql);//查詢判斷重複 
         $row = mysqli_fetch_array($result);
-        $rowarray[0] = $row;
+        $rowarray[0] = $row;      //資料存到$rowarry陣列
         //print_r($row);
         
          if($rowarray[0] != null){  //資料存在，更新
            
-            $sql_update = "UPDATE game SET num='".$data[$d][$i]['num']."' WHERE id='".$rowarray[0]['id']."'";
-           mysqli_query($link, $sql_update);
+            $sql_update = "UPDATE game SET num='".$data[$d][$i]['num']."' WHERE id='".$rowarray[0]['id']."'"; //更新競猜人數
+            mysqli_query($link, $sql_update);
             
           }
           else{       //資料不存在，新增
@@ -154,37 +159,9 @@ function game($game,$d){
   	}//end foreach $data 
     
     $sql_insert = substr($sql_insert, 0, -1); //刪掉,  
-    mysqli_query($link, $sql_insert);
+    mysqli_query($link, $sql_insert); //新增資料
     
    mysqli_close($link);
 }//end fouction
 
-
-/*
-echo $data[$d][$i]["race"].",";
-    		echo $data[$d][$i]["host"].",";
-    		echo $data[$d][$i]["visite"].",";
-    		echo $data[$d][$i]["time"].",";
-    		echo $data[$d][$i]["concede"].",";
-    		echo "勝".$data[$d][$i]["victory"].",";
-    		echo "勝".$data[$d][$i]["victory1"].",";
-    		echo "平".$data[$d][$i]["draw"].",";
-    		echo "平".$data[$d][$i]["draw1"].",";
-    		echo "负".$data[$d][$i]["defeat"].",";
-    		echo "负".$data[$d][$i]["defeat1"].",";
-    		echo $data[$d][$i]["num"]."<br>";
-        
-        
-        $rowarray[$j]["time"] != $data[$d][$i]["time"] &&
-             $rowarray[$j]["concede"] != $data[$d][$i]["concede"] &&
-             $rowarray[$j]["victory"] != $data[$d][$i]["victory"] &&
-             $rowarray[$j]["victory1"] != $data[$d][$i]["victory1"] &&
-             $rowarray[$j]["draw"] != $data[$d][$i]["draw"] &&
-             $rowarray[$j]["draw1"] != $data[$d][$i]["draw1"] &&
-             $rowarray[$j]["defeat"] != $data[$d][$i]["defeat"] &&
-             $rowarray[$j]["defeat1"] != $data[$d][$i]["defeat1"] &&
-             $rowarray[$j]["num"] != $data[$d][$i]["num"] 
-             */
-             
-   
 ?>
