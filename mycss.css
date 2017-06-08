@@ -27,6 +27,7 @@
 .pointer{         /*date <td>*/
   cursor: pointer;
   background-color: #c3e5ff;
+  
 }
 .leagueName {           /* race*/
     background: #214dbe;
@@ -83,4 +84,15 @@
 .num {          /*num*/
     color: #ed3a37!important;
 }
-
+.arrow{
+  width: 19px;
+  height: 11px;
+  padding-right: 20px;
+  background: url(./img/more.png) center 0 no-repeat;
+}
+.arrow1{
+  width: 11px;
+  height: 18px;
+  padding-right: 20px;
+  background: url(./img/morel.png) center 0 no-repeat;
+}

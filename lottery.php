@@ -1,81 +1,93 @@
 
 <?php
-  $link = mysqli_connect('localhost','root','123456','lottery') // 連資料庫
-			or die("error".mysqli_connect_error());
-  mysqli_query($link,"set names utf8");
+  include('catchdata.php');
+  include('./dbtool/dbtool.php');
   
+  $link = connection(); //資料庫連線
+  
+  lottery($link);//抓資料
+  
+  date_default_timezone_set('Asia/Taipei');//設定地點為台北時區
   $todate=date("Y-m-d");     //今天日期
-  $tomorrow = date('Y-m-d',strtotime($todate."+1 days")); //明天
-  
-  $sql = "select * from game where date >= '".$todate."'"; //抓今天以後的資料
-  
-  $result = mysqli_query($link,$sql);//查詢判斷重複 
-  
-  $row = mysqli_fetch_array($result);//資料存到$rowarry陣列
-  do{
-		$rowarray[] = $row;
-	}
-	while ( $row = mysqli_fetch_assoc($result));{
-		
-	}
-  
-  mysqli_close($link); 
-  
-  $count = count($rowarray); //計算有幾筆資料
 
-  for($i=0;$i<$count;$i++){             // 計算第幾筆資料換天
-    if($rowarray[$i]["date"] == $todate){
-      $change = $i;
-    }
-    if($rowarray[$i]["date"] == $tomorrow){
-      $change1 = $i;
-    }
-  }   
+  $sql = "select 
+            * 
+          from 
+            game 
+          where 
+            date >='".$todate."' 
+          ORDER BY 
+            date , time;"; 
+  $result = mysqli_query($link,$sql);//抓今天以後的資料
   
-  $change++;  //第幾筆資料換天
-  $change1++;
-  $info ="";
-  $more = 0;
+  $info ="";  //印資料字串
+  $more = 0;  //id 
+  $nowPrintDate = '';//判斷印到哪天
   
-  for($i=0;$i<$count;$i++){
-    if($i == 0 || $i == $change || $i == $change1){
+  //存賽事顏色
+  $raceColor = array('阿根廷杯'=>'#336699',
+                     '国际赛'=> '#327E7C',
+                     '世界杯预'=>'#336600',
+                     '巴西甲'=>'#336699',
+                     '世青赛'=>'#C58788',
+                     );
+  
+  while($row = mysqli_fetch_array($result)) {
+  
+    if($nowPrintDate == "" || $nowPrintDate != $row["date"]){
       $more++;
-      $info .= '<tr class="more expanded" id="more'. $more .'" style="border-top: 0;">
-                  <td colspan="6" class = "pointer">'. $rowarray[$i]["date"] .' 每次竞猜选择一个选项下注</td>
+      $info .= '<tr class="more expanded" id="more'. $more .'" style="border-top: 0;" onclick="clickMore('. $more .')">
+                  <td colspan="6" class = "pointer">
+                  <span id="arrow'. $more .'" class="arrow">
+                  </span>
+                    '. $row["date"] .' 每次竞猜选择一个选项下注
+                  </td>
                 </tr>
                ';
-      
+      $nowPrintDate = $row["date"];  
     }
     $info .= '
               <tr class="moreContent more'. $more .'" style="display: table-row">
-                <td><span class="leagueName" style="background-color: #336699; color: #ffffff">'. $rowarray[$i]["race"] .'</span></td>
-                <td class="name"><span class="ht">'. $rowarray[$i]["host"] .' </span>
+                <td><span class="leagueName" style="background-color: '.$raceColor[$row["race"]] .'; color: #ffffff">'. $row["race"] .'</span></td>
+                <td class="name"><span class="ht">'. $row["host"] .' </span>
                                  <span class="vs">vs</span>
-                                 <span class="at">'. $rowarray[$i]["visite"] .'</span>
+                                 <span class="at">'. $row["visite"] .'</span>
                 </td>
-                <td ><span class="time">'. $rowarray[$i]["time"] .'</span></td>
+                <td ><span class="time">'. $row["time"] .'</span></td>
                 <td>
                                   
                   <span class="rq1">0</span>
                                   
-                  <span class="rq2" style="color: green">'. $rowarray[$i]["concede"] .'</span>
-                                  
+                  <span class="rq2" style="color:'; 
+    
+    if($row["concede"] > 0){     //判斷讓分正負顏色
+      $info .= ' green ';
+    }              
+    else{
+      $info .= ' #ed3a37 ';
+    }
+    
+    $info .= '">'. $row["concede"] .'</span>                
                 </td>
-                <td class="odds" width="300">
+                <td class="odds" width="300">';
+    
+    if($row["victory"] != " "){
+      $info .='
+                  <span>胜 '. $row["victory"] .'</span>
+                  <span>平 '. $row["draw"] .'</span>
+                  <span>负 '. $row["defeat"] .'</span>';
+    }
+    $info .='                      
+              <span>胜 '. $row["victory1"] .'</span>
+              <span>平 '. $row["draw1"] .' </span>
+              <span>负 '. $row["defeat1"] .'</span>
                                   
-                  <span>胜 '. $rowarray[$i]["victory1"] .'</span>
-                  <span>平 '. $rowarray[$i]["draw1"] .'</span>
-                  <span>负 '. $rowarray[$i]["defeat1"] .'</span>
-                                  
-                  <span>胜 '. $rowarray[$i]["victory"] .'</span>
-                  <span>平 '. $rowarray[$i]["draw"] .' </span>
-                  <span>负 '. $rowarray[$i]["defeat"] .'</span>
-                                  
-                </td>
-                <td class="num">'. $rowarray[$i]["num"] .'人竞猜</td>
-              </tr>
-             ';
-  }
+             </td>
+             <td class="num">'. $row["num"] .'人竞猜</td>
+            </tr>
+           ';    
+  } 
+  mysqli_close($link); 
 ?>
 <!DOCTYPE html>
 <html>
@@ -96,7 +108,6 @@
         <th width="150" class="br3">竞猜人数</th>
       </tr>
    </thead>
-
     <tbody>
       <?php echo $info; ?>
     </tbody>
@@ -104,19 +115,9 @@
 </body>
 </html>
 <script>
-$(document).ready(function(){
-    $("#more1").click(function(){
-        $(".more1").toggle();
-    });
-    
-    $("#more2").click(function(){
-        $(".more2").toggle();
-    });
-    
-    $("#more3").click(function(){
-        $(".more3").toggle();
-    });
-    
-});
+    function clickMore(id){
+      $(".more"+id).toggle( );
+      $( "#arrow"+id).toggleClass( "arrow1" ); 
+    }   
 </script>
 
