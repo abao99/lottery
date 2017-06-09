@@ -30,6 +30,7 @@
                      '世界杯预'=>'#336600',
                      '巴西甲'=>'#336699',
                      '世青赛'=>'#C58788',
+                     'J2联赛'=>'#22C126',
                      );
   
   while($row = mysqli_fetch_array($result)) {
@@ -97,27 +98,29 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
-  <table class="gameTable">
-    <thead>
-      <tr>
-        <th width="100" class="bl3">赛事</th>
-        <th width="200">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;主队&nbsp;&nbsp;&nbsp;vs&nbsp;&nbsp;&nbsp;客队&nbsp;&nbsp;</th>
-        <th width="80">截止</th>
-        <th>让球</th>
-        <th width="300">主胜&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;平局&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;客胜</th>
-        <th width="150" class="br3">竞猜人数</th>
-      </tr>
-   </thead>
-    <tbody>
-      <?php echo $info; ?>
-    </tbody>
-  </table>
+  <div class="contentWrap">
+    <table class="gameTable">
+      <thead>
+        <tr>
+          <th width="100" class="bl3">赛事</th>
+          <th width="200">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;主队&nbsp;&nbsp;&nbsp;vs&nbsp;&nbsp;&nbsp;客队&nbsp;&nbsp;</th>
+          <th width="80">截止</th>
+          <th>让球</th>
+          <th width="300">主胜&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;平局&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;客胜</th>
+          <th width="150" class="br3">竞猜人数</th>
+        </tr>
+     </thead>
+      <tbody>
+        <?php echo $info; ?>
+      </tbody>
+    </table>
+  </div>
 </body>
 </html>
 <script>
     function clickMore(id){
       $(".more"+id).toggle( );
-      $( "#arrow"+id).toggleClass( "arrow1" ); 
+      $("#arrow"+id).toggleClass( "arrow1" ); 
     }   
 </script>
 

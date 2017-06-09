@@ -1,5 +1,5 @@
 .gameTable{
-  width: 60%;
+  width: 100%;
   margin-left:auto;
   margin-right:auto;
 }
@@ -95,4 +95,13 @@
   height: 18px;
   padding-right: 20px;
   background: url(./img/morel.png) center 0 no-repeat;
+}
+.contentWrap {
+    width: 930px;
+    background: #b6dfff;
+    padding: 15px;
+    height: auto;
+    margin: 15px auto 0;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
 }
