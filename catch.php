@@ -22,9 +22,9 @@ function lottery($link){	//$link:連線資料
   //抓一天賽事
   for($i=1; $i<=count($date[1]); $i++) {
     preg_match_all('/<tr class="moreContent more'.$i.'" style="display: table-row">(.*?)<\/tr>/',$tbody[0][0],$day,PREG_PATTERN_ORDER);
-    $data[$date[1][$i-1]]=game($day,$i,$date,$link);	//抓資料存資料庫	
+    $data[$date[1][$i-1]] = game($day,$i,$date,$link);	//抓資料存資料庫	tbodydata: 原始要分析的html資料 , $d: 第幾天 , $date:日期資料 ,$link:連線資料
   }
-  return $data;
+  return $data;//回傳抓到的資料
 } 
 
 //抓資料存資料庫	
@@ -32,7 +32,6 @@ function game($tbodydata,$d,$date,$link){    //$tbodydata: 原始要分析的htm
   $count1 =count($tbodydata[1]);  //計算那天有幾場賽事
   $d=$d-1;					
 	$data = array();
-  
 
 	for($i=0;$i<$count1;$i++){	//$i 第幾場賽事
      
@@ -111,78 +110,7 @@ function game($tbodydata,$d,$date,$link){    //$tbodydata: 原始要分析的htm
 		preg_match_all('/<td class="num">(.*?)<\/td>/',$tbodydata[1][$i],$num,PREG_PATTERN_ORDER);
 		$data[$d][$i]["num"]=$num[1][0];
 	}//end for
-  return $data;
+  return $data; //回傳抓到的資料
 }//end fouction	
-
-//更新&新增資料
-function alz($data,$link){	 //$data:資料 $link:連線資料
-  $sql_insert = "INSERT INTO game (date, race, host, visite, time, concede, victory, victory1, draw, draw1, defeat, defeat1, num) 
-                 VALUES ";
-	 
-  $flag = 0; //判斷資料有沒有新增
-  $count =0;// 新增幾筆資料
-  $alz = array();
-  foreach($data as $k => $v){   //哪一天 
-    foreach($v as $d => $v1) {  //$d日期
-        
-      foreach($v1 as $i => $v2) {  //$i那天第幾場賽事資料
-
-        $sql = "select 
-                  * 
-                from 
-                  game 
-                where 
-                  date = '".$data[$k][$d][$i]["date"]."' and      
-                  race = '".$data[$k][$d][$i]["race"]."' and
-                  host ='".$data[$k][$d][$i]["host"]."' and
-                  visite ='".$data[$k][$d][$i]["visite"]."';";
-          
-        $result = mysqli_query($link,$sql);//查詢判斷重複 
-        $row = mysqli_fetch_array($result);//資料存到$row陣列
-        $total_records = mysqli_num_rows($result);     
-          
-        if($row != null){  //資料存在，更新
-          if($row["num"] != $data[$k][$d][$i]["num"]){
-            $sql_update = "UPDATE 
-                            game 
-                          SET 
-                            num='".$data[$k][$d][$i]['num']."' 
-                          WHERE 
-                            id='".$row['id']."'"; //更新競猜人數
-               
-            mysqli_query($link, $sql_update);
-            $alz["updateId"][]= $row["id"];
-          }
-        }
-        else{       //資料不存在，新增
-          $flag = 1;
-          $count++;
-          $sql_insert .= "('".$data[$k][$d][$i]["date"]."',
-                          '".$data[$k][$d][$i]["race"]."',
-                          '".$data[$k][$d][$i]["host"]."',
-                          '".$data[$k][$d][$i]["visite"]."',
-                          '".$data[$k][$d][$i]["time"]."',
-                          '".$data[$k][$d][$i]["concede"]."',
-                          '".$data[$k][$d][$i]["victory"]."',
-                          '".$data[$k][$d][$i]["victory1"]."',
-                          '".$data[$k][$d][$i]["draw"]."',
-                          '".$data[$k][$d][$i]["draw1"]."',
-                          '".$data[$k][$d][$i]["defeat"]."',
-                          '".$data[$k][$d][$i]["defeat1"]."',
-                          '".$data[$k][$d][$i]["num"]."'
-                         ),";
-        }//end else
-      }//end foreach $v
-    }//end foreach $data 
-  }
-    if($flag == 1){
-      $sql_insert = substr($sql_insert, 0, -1); //刪掉,  
-      mysqli_query($link, $sql_insert); //新增資料
-      
-      $total_records += $count;
-      $alz["insertNumber"][] = $total_records;
-    }
-  return $alz;
-}//end fouction
 
 ?>

@@ -1,0 +1,17 @@
+<html>
+<head>
+	<title>足球天天?猜 - ?加足球?猜游??好? | 酷?巴巴彩票网</title>
+  
+<body onload="Submit();">
+  <form action="./index.php" id="qry" method="POST">
+    <input type="hidden" name="search_str" value='<?php echo $search_str;?>'>
+    <input type="hidden" name="hide" value="q">
+    <input type="submit"  value="Submit">
+  </form>
+</body>
+</html>
+<script>
+  function Submit() {
+    document.getElementById("qry").submit();
+}
+</script>
