@@ -19,12 +19,12 @@
                   where";
     
     for($i=0; $i<$count;$i++){          //哪幾筆資料有更新
-     if($i != ($count-1)){
-      $sql_update.=" id = ".$alz["updateId"][$i]." or";
-     }
-     else{
-      $sql_update.=" id = ".$alz["updateId"][$i]."";
-     }
+      if($i != ($count-1)){
+        $sql_update.=" id = ".$alz["updateId"][$i]." or";
+      }
+      else{
+        $sql_update.=" id = ".$alz["updateId"][$i]."";
+      }
     }
 
     $sql_update.= " ORDER BY 

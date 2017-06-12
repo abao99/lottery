@@ -184,11 +184,11 @@
       if(data[i]["victory"] != " "){
         
         info +='<span>胜 '+ data[i]["victory"] +'</span>'+
-                  '<span>平 '+data[i]["draw"] +'</span>'+
-                  '<span>负 '+ data[i]["defeat"] +'</span>';
+               '<span>平 '+data[i]["draw"] +'</span>'+
+               '<span>负 '+ data[i]["defeat"] +'</span>';
       }
                             
-      info +='<span>胜 '+ data[i]["victory1"] +'</span>'+
+      info +=  '<span>胜 '+ data[i]["victory1"] +'</span>'+
                 '<span>平 '+ data[i]["draw1"] +' </span>'+
                 '<span>负 '+ data[i]["defeat1"] +'</span>'+                  
                '</td>'+
