@@ -1,5 +1,4 @@
 <?php
-  include('catch.php');
   include('./dbtool/dbtool.php');
   
   $link = connection(); //資料庫連線
@@ -44,16 +43,19 @@
             }
 
     $sql = substr($sql, 0, -3); //刪掉and  
+    
+    $sql .="ORDER BY 
+              date , time;"; 
+    
   } 
 
   $result = mysqli_query($link,$sql);//查詢判斷重複 
+
+  while( $row = mysqli_fetch_assoc($result)){
+    $rowarray[] = $row;
+  }
+    
+  echo json_encode($rowarray);
   
-  $row = mysqli_fetch_assoc($result);
-    do{
-      $rowarray[] = $row;
-    }
-    while ( $row = mysqli_fetch_assoc($result));{
-      echo json_encode($rowarray);
-    }
- mysqli_close($link);  
+  mysqli_close($link);  
 ?>

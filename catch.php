@@ -46,8 +46,7 @@ function game($tbodydata,$d,$date,$link){    //$tbodydata: 原始要分析的htm
       preg_match_all('/color: #FFFFFF\'>(.*?)<\/span><\/td>/',$tbodydata[1][$i],$race,PREG_PATTERN_ORDER);
       $data[$d][$i]["race"]=$race[1][0];
     }
-		
-		
+    
 		//抓主隊
 		preg_match_all('/<span class="ht">(.*)<\/span>vs/',$tbodydata[1][$i],$host,PREG_PATTERN_ORDER);
 		$data[$d][$i]["host"]=$host[1][0];
@@ -107,7 +106,7 @@ function game($tbodydata,$d,$date,$link){    //$tbodydata: 原始要分析的htm
       }
 
 		//抓人數
-		preg_match_all('/<td class="num">(.*?)<\/td>/',$tbodydata[1][$i],$num,PREG_PATTERN_ORDER);
+		preg_match_all('/<td class="num">(.*?)人竞猜<\/td>/',$tbodydata[1][$i],$num,PREG_PATTERN_ORDER);
 		$data[$d][$i]["num"]=$num[1][0];
 	}//end for
   return $data; //回傳抓到的資料

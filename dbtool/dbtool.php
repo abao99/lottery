@@ -1,7 +1,7 @@
 <?php
 	function connection(){
     $servername = "localhost";
-    $username = "admin";//root
+    $username = "root";//root
     $password = "123456";
     $database = "lottery";
     

@@ -31,37 +31,35 @@
                      date , time;";
 
     $result = mysqli_query($link,$sql_update);
-    $row = mysqli_fetch_assoc($result);   //把資料存成JASON格式
-    do{
+    
+    while ( $row = mysqli_fetch_assoc($result)){
+      $row["alz"] = "update";     //判斷是更新資料
       $rowarray[] = $row;
     }
-    while ( $row = mysqli_fetch_assoc($result));{
-      echo json_encode($rowarray);
-    }
   }
-
+  
   if(isset($alz["insertNumber"][0])){ //判斷有沒有新增資料 $alz["insertNumber"][0]: 新增幾筆資料
     $sql_insert= "select 
-                  * 
-                from 
-                  game 
-                ORDER BY 
-                  id
-                  DESC
-                limit
-                  ".$alz["insertNumber"][0].";";
+                    * 
+                  from 
+                    game 
+                  ORDER BY 
+                    id
+                    DESC
+                  limit
+                    ".$alz["insertNumber"][0].";";
 
     $result1 = mysqli_query($link,$sql_insert);
-   
-    $row1 = mysqli_fetch_assoc($result1);
-    do{
-      $rowarray1[] = $row1;
-    }
-    while ( $row1 = mysqli_fetch_assoc($result1));{
-      echo json_encode($rowarray1);
-    }
+    
+    while ( $row1 = mysqli_fetch_assoc($result1)){
+      $row1["alz"] = "insert";    //判斷是新增資料
+      $rowarray[] = $row1;
+    }  
   }
-    mysqli_close($link); 
+  
+  echo json_encode($rowarray);  
+  
+  mysqli_close($link); 
 
 //更新&新增資料
 function alz($data,$link){   //$data:資料 $link:連線資料
@@ -90,13 +88,13 @@ function alz($data,$link){   //$data:資料 $link:連線資料
         $row = mysqli_fetch_array($result);//資料存到$row陣列
               
         if($row != null){  //資料存在，更新
-          if($row["num"] != $data[$k][$d][$i]["num"]){
+          if($row["num"] != $data[$k][$d][$i]["num"]){    //更新競猜人數
             $sql_update ="UPDATE 
                             game 
                           SET 
                             num='".$data[$k][$d][$i]['num']."' 
                           WHERE 
-                            id='".$row['id']."'"; //更新競猜人數
+                            id='".$row['id']."'"; 
                
             mysqli_query($link, $sql_update);
             
@@ -130,7 +128,7 @@ function alz($data,$link){   //$data:資料 $link:連線資料
 
       $alz["insertNumber"][] = $count;  //記錄新增幾筆資料
     }
-  return $alz; //回傳紀錄更新資料的id & 新增幾筆資料
+  return $alz; //回傳更新資料的id & 新增幾筆資料
 }//end fouction
 ?>
 

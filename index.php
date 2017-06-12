@@ -23,6 +23,7 @@
           <option value="世青赛">世青赛</option>
           <option value="J2联赛">J2联赛</option>
           <option value="美职">美职</option>
+          <option value="亚洲杯预">亚洲杯预</option>
         </select>&nbsp;&nbsp;
       主隊:
         <input type="text" name="host">&nbsp;&nbsp;
@@ -45,8 +46,7 @@
           <th width="150" class="br3">竞猜人数</th>
         </tr>
      </thead>
-      <tbody id = "msg">
-        
+      <tbody id = "msg"> 
       </tbody>
     </table>
   </div>
@@ -67,7 +67,7 @@
       dataType:"json",
       success:showval,
       error:function(data){
-        alert("error");
+        alert("無新增、更新");
       },
     });
   }
@@ -80,7 +80,7 @@
       dataType:"json",
       success:showval,
       error:function(data){
-        alert("error");
+        alert("本期竞猜已结束");
       },
     });
   }
@@ -90,39 +90,75 @@
     $.ajax({
       type:"POST",
       url:"./qry.php",
-      data: $('#search').serialize(),  //id = search : 搜尋表單，送出搜尋條件
+      data: $('#search').serialize(),  //id = search : 搜尋表單，送出搜尋條件 serialize():序列化表單
       dataType:"json",
       success:showval,
       error:function(data){
-        alert("error");
+        alert("無資料");
       },
     });
   }
 
   //顯示資料
-  function showval(data){
+  function showval(data){   //data: json資料
     
-    var more = 0;
-    var nowPrintDate = "";
-    var info = "";
-    
-    for(i=0;i<data.length;i++){
-  
-      if(nowPrintDate == "" || nowPrintDate != data[i]["date"]){
-        more++;
-        info += '<tr class="more expanded" id="more'+ more +'" style="border-top: 0;" onclick="clickMore('+ more +')">'+
-                  '<td colspan="6" class = "pointer">'+
-                    '<span id="arrow'+ more +'" class="arrow">'+
-                   ' </span>'+
-                       data[i]["date"] +'每次竞猜选择一个选项下注'+
-                    '</td>'+
-                  '</tr>';
-        nowPrintDate = data[i]["date"];  
-      }
+    var more = 0;           //計算 id= more幾
+    var nowPrintDate = "";  //判斷有沒有換天
+    var nowPrintAlz = "";  //判斷是新增或更新
+    var info = "";          //存字串
+    var raceColor = {                       //存賽事顏色
+                  "阿根廷杯"  : "#336699",
+                  "国际赛" : "#327E7C",
+                  "世界杯预" : "#336600",
+                  "巴西甲" : "#336699",
+                  "世青赛" : "#C58788",
+                  "J2联赛" : "#22C126",
+                  "亚洲杯预" : "#37BE5A",
+                };     
+     
       
+    for(i=0;i<data.length;i++){
+      
+      if(typeof(data[i]["alz"]) == "undefined"){    //判斷是查詢還是分析
+        if(nowPrintDate == "" || nowPrintDate != data[i]["date"]){  //判斷有沒有換天
+          more++;
+          info += '<tr class="more expanded" id="more'+ more +'" style="border-top: 0;" onclick="clickMore('+ more +')">'+
+                    '<td colspan="6" class = "pointer">'+
+                      '<span id="arrow'+ more +'" class="arrow">'+
+                      ' </span>'+
+                         data[i]["date"] +' 每次竞猜选择一个选项下注'+
+                      '</td>'+
+                    '</tr>';
+          nowPrintDate = data[i]["date"];  
+        }
+      }
+      else{
+        if(nowPrintAlz == "" || nowPrintAlz != data[i]["alz"]){ //判斷是新增或更新
+          more++;
+          info += '<tr class="more expanded" id="more'+ more +'" style="border-top: 0;" onclick="clickMore('+ more +')">'+
+                    '<td colspan="6" class = "pointer">'+
+                      '<span id="arrow'+ more +'" class="arrow">'+
+                     ' </span>';
+          if(data[i]["alz"] == "update")            
+            info +=   '更新資料';
+          
+          if(data[i]["alz"] == "insert")            
+            info +=   '新增資料';
+          
+          info +=   '</td>'+
+                  '</tr>';
+          nowPrintAlz = data[i]["alz"];  
+        }
+      }    
       info += ' <tr class="moreContent more'+ more +'" style="display: table-row">'+
-                  '<td><span class="leagueName" style="background-color:#336699 '+
-                  '; color: #ffffff">'+ data[i]["race"] +'</span></td>'+
+                  '<td><span class="leagueName" style="background-color: '+ raceColor[data[i]["race"]] +
+                  '; color: #ffffff">'+ data[i]["race"] +'</span>';
+        
+        if(typeof(data[i]["alz"]) != "undefined"){    //是分析資料印日期
+          info += '<span>'+ data[i]["date"] +'</span>';
+        }            
+     
+     info +=    '</td>'+
                  ' <td class="name"><span class="ht">'+ data[i]["host"] +' </span>'+
                                    '<span class="vs">vs</span>'+
                                    '<span class="at">'+ data[i]["visite"] +'</span>'+
@@ -161,6 +197,4 @@
     } 
     document.getElementById("msg").innerHTML = info;
   }
-
-//document.getElementById("msg").innerHTML = data[0]["race"];
 </script>

@@ -1,32 +1,41 @@
 .gameTable{
-  width: 100%;
-  margin-left:auto;
-  margin-right:auto;
+    width: 100%;
+    margin-left:auto;
+    margin-right:auto;
+    border-radius: 3px;
+    border-radius: 3px;
 }
 .gameTable thead th {
-     background-color: #0a81d7;
-     height: 35px;
-     color: #fff;
-     border-right: 1px solid #006fc0;
+    background-color: #0a81d7;
+    height: 35px;
+    color: #fff;
+    border-right: 1px solid #006fc0;
+    border-radius: 3px;
+    border-radius: 3px;
+    
  }
 .gameTable tbody tr {   /*框線*/
-      border: 1px solid #333333;
+    border: 1px solid #333333;
+    border-radius: 3px;
+    border-radius: 3px;
   }
 .gameTable tr.moreContent td {
-     background-color: #ffffff;
-     height: 80px;
-     color: #0a81d7;
-     text-align: center;
+    background-color: #ffffff;
+    height: 80px;
+    color: #0a81d7;
+    text-align: center;
+    border-radius: 3px;
+    border-radius: 3px;
  }
 .gameTable tr.more td {
     background-color: #eef8ff;
-     height: 35px;
-     color: #004478;
-     padding-left: 20px;
+    height: 35px;
+    color: #004478;
+    padding-left: 20px;
  }  
 .pointer{         /*date <td>*/
-  cursor: pointer;
-  background-color: #c3e5ff;
+    cursor: pointer;
+    background-color: #c3e5ff;
   
 }
 .leagueName {           /* race*/
@@ -40,8 +49,8 @@
     
 }
 .name{
-  text-align: center;
-  padding-left: 20px;
+    text-align: center;
+    padding-left: 20px;
 }
 .name .vs {           /*host vs visite*/
     width: 20px;
@@ -67,34 +76,31 @@
     width: 60px;
     text-align: center;
     background: #b6dfff;
-    padding: 6px 12px;
+    padding: 6px 12px 5px;
     color: #0a81d7;
-    margin: 3px 0 0 0;
+    margin: 3px 3px 0 0;
     border-radius: 3px;
     display: inline-block;
     cursor: pointer;
 }
 .time{          /*time*/
-  
-  text-align: center;
-  display: inline-block;
-  
+    text-align: center;
+    display: inline-block;
 }
-
 .num {          /*num*/
     color: #ed3a37!important;
 }
 .arrow{
-  width: 19px;
-  height: 11px;
-  padding-right: 20px;
-  background: url(./img/more.png) center 0 no-repeat;
+    width: 19px;
+    height: 11px;
+    padding-right: 20px;
+    background: url(./img/more.png) center 0 no-repeat;
 }
 .arrow1{
-  width: 11px;
-  height: 18px;
-  padding-right: 20px;
-  background: url(./img/morel.png) center 0 no-repeat;
+    width: 11px;
+    height: 18px;
+    padding-right: 20px;
+    background: url(./img/morel.png) center 0 no-repeat;
 }
 .contentWrap {
     width: 930px;
