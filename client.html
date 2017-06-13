@@ -1,0 +1,18 @@
+<html>
+  <head>
+    <script src="/socket.io/socket.io.js"></script>  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <script>
+  
+      var socket = require('socket.io-client')('http://localhost:8001');
+      socket.on('date',function(data){
+        $('#msg').html(data.race);
+      });
+      
+      socket.emit('data',{'date':'2017'});
+    </script>
+    <div id = "msg">This is our socket.html file </div>
+  </body>
+</html>

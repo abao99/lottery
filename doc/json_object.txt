@@ -1,0 +1,13 @@
+var a = {name:"jack"}; //object
+
+var a = {"name":"jack"}; //json
+
+
+
+<?php
+  echo '{"name":"jack"}';
+
+?>
+
+
+ https://peihsinsu.gitbooks.io/node-js-500-samples/content/mdfiles/socket.io-client.html

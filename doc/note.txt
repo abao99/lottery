@@ -1,0 +1,139 @@
+程式習慣要求
+‧排版
+‧註解
+
+練習
+1.撰寫 php(fopen, file, file_get_contents, curl ...) 讀取網站資料
+  http://www.kufa88.com/Promotion/nba
+  http://www.kufa88.com/Promotion/jingcai
+2.分析網頁並取出要的資料寫進資料庫
+  http://www.tshopping.com.tw/thread-230313-1-1.html
+3.讀取資料庫使用 html + css + javascript 顯示在畫面上
+
+●架站懶人包
+easyphp
+appserv
+xampp
+twamp
+ps.容易有漏洞,僅供練習
+
+●html
+tag
+  <!-- 註解 -->
+  <br>
+  <p>
+  <div>
+  <span>
+  <pre>
+  <a>
+  <img>
+  <h1>~<h6>
+  <hr>
+  <b>
+  <table> <tr> <th> <td>
+  <ul> <li>
+  <ol>
+  <form action="" method="get|post">
+  <input type="text|password|radio|checkbox|file|submit|button">
+  <button>
+  <select> <option>
+  <textarea>
+attribute
+  style
+  disabled
+  readonly
+  required(html5)
+symbol
+  &nbsp;
+
+http/https
+GET/POST
+id/name
+  
+●css
+element Selector
+id Selector
+class Selector
+Three Ways to Insert CSS
+  1.External Style Sheet
+  2.Internal Style Sheet
+  3.Inline Styles
+●javascript
+  dom
+  jquery
+  傳值、傳址(參考) http://heyyou.logdown.com/posts/145054
+●php
+  網頁架構
+    html, css, javascript, php位置
+    html使用雙引號
+  '單"雙引號差異
+  echo / print_r() / var_dump()
+  函數
+    error_reporting()
+    substr()
+    strpos()
+    explode() / implode()
+    preg_match() / preg_match_all()
+  全域/區域 變數
+  array push  http://php.net/manual/en/function.array-push.php
+  hash array  http://php.net/manual/en/language.types.array.php
+  
+●mysql
+  insert
+  update
+  delete
+  select
+    -欄位別名
+    -where
+    -between
+    -like
+  pk, fk, uk, index
+  正規化
+    https://zh.wikipedia.org/wiki/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A7%84%E8%8C%83%E5%8C%96
+    正規化: 降低資料的重覆性、避免資料更新異常
+    反正規化: 以查詢效能為考量
+●ajax
+  json
+    json online
+      http://www.jsoneditoronline.org/
+    php
+      json_encode、json_decode
+  jquery ajax
+    JQuery中的Ajax的基礎運用。提供範例程式下載。
+    http://expect7.pixnet.net/blog/post/37919326-%5B%E7%A8%8B%E5%BC%8F%5D%5Bjquery%5D-jquery%E4%B8%AD%E7%9A%84ajax%E7%9A%84%E5%9F%BA%E7%A4%8E%E9%81%8B%E7%94%A8%E3%80%82%E6%8F%90%E4%BE%9B%E7%AF%84
+    php – jQuery – AJAX 跨網域取得遠端 JSON 或 JSONP 設計
+    http://jsnwork.kiiuo.com/archives/1577/php-jquery-ajax-%E8%B7%A8%E7%B6%B2%E5%9F%9F%E5%8F%96%E5%BE%97%E9%81%A0%E7%AB%AF-json-%E6%88%96-jsonp-%E8%A8%AD%E8%A8%88
+    
+●nodejs
+//官方
+http://nodejs.org
+
+//使用npm套件管理工具 安裝套件
+https://www.npmjs.com/
+  想要什麼功能, 先這邊找, 這些都是登記在npm底下的套件
+  比如會用到 redis資料庫, 就在要寫的資料夾下 npm install redis,
+  然後照著它套件的頁面 https://github.com/mranney/node_redis 就通通有範例
+
+  安裝 socket.io
+  https://www.npmjs.com/package/socket.io
+  >npm install socket.io
+
+  安裝 mysql
+  >npm install mysql
+  https://www.npmjs.com/package/mysql#install
+  
+//在 Windows、Mac OS X 與 Linux 中安裝 Node.js 網頁應用程式開發環境
+http://blogger.gtwang.org/2013/12/install-node-js-in-windows-mac-os-x-linux.html
+
+//使用 Node.js 與 Socket.IO 建立即時性（Realtime）網頁應用程式 App
+http://blogger.gtwang.org/2014/03/socket-io-node-js-realtime-app.html
+
+socket vs post/get 差異
+  
+callback
+  //Javascript callbacks
+  http://dreamerslab.com/blog/tw/javascript-callbacks/
+  //Understanding callback functions in Javascript
+  http://recurial.com/programming/understanding-callback-functions-in-javascript/
+  
+    
