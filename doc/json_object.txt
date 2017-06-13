@@ -11,3 +11,5 @@ var a = {"name":"jack"}; //json
 
 
  https://peihsinsu.gitbooks.io/node-js-500-samples/content/mdfiles/socket.io-client.html
+
+http://ithelp.ithome.com.tw/articles/10102886
