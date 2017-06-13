@@ -5,14 +5,14 @@
   <link rel="stylesheet" type="text/css" href="./mycss.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
-<body onload ="qry();"><!-- qry():第一次執行，搜尋今天資料 -->
+<body onload ="qry();" style ="background-color: #0a81d7;"><!-- qry():第一次執行，搜尋今天資料 -->
   <div class="contentWrap">
 
     <form id="search"><!-- 搜尋表單 -->
       日期(起):
         <input type="date" name="dateStart">&nbsp;&nbsp;~
       日期(迄):
-        <input type="date" name="dateEnd"><br>
+        <input type="date" name="dateEnd">
       賽事:
         <select name="race">
           <option value="">---請選擇---</option>
@@ -24,17 +24,21 @@
           <option value="J2联赛">J2联赛</option>
           <option value="美职">美职</option>
           <option value="亚洲杯预">亚洲杯预</option>
+          <option value="美公开杯">美公开杯</option>
         </select>&nbsp;&nbsp;
       主隊:
-        <input type="text" name="host">&nbsp;&nbsp;
+        <input type="text" name="host" size="10">&nbsp;&nbsp;
       客隊:
-        <input type="text" name="visite">&nbsp;&nbsp;
-      <input type="hidden" name="hide" value="qry">   <!-- 判斷有沒有搜尋條件 -->
-      <input type="button"  value="查詢"  onclick="Submit();">&nbsp;    <!-- Submit():搜尋條件抓資料 -->
-      <button type="button" onclick="alz();">分析</button>  <!-- alz():分析資料 -->
-      
+        <input type="text" name="visite" size="10">&nbsp;&nbsp;
+       
+        <input type="hidden" name="hide" value="qry">   <!-- 判斷有沒有搜尋條件 -->
+        <input type="button"  value="查詢"  onclick="Submit();" style="float:right;">&nbsp;    <!-- Submit():搜尋條件抓資料 -->
+        <button type="button" onclick="alz();" style="float:left; margin-right:5px;">分析</button>  <!-- alz():分析資料 -->
+        
+          
     </form>
-
+    <div id="loadingIMG" style="display:none"><img src="./img/loading.gif" height='14'/>資料處理中，請稍後。</div>
+    
     <table class="gameTable">
       <thead>
         <tr>
@@ -65,9 +69,17 @@
       type:"POST",
       url:"./alz.php",
       dataType:"json",
-      success:showval,
+      success:function(data){
+        showval(data);
+      },
+      beforeSend:function(){
+        $('#loadingIMG').show();
+      },
+      complete:function(){
+        $('#loadingIMG').hide();
+      },
       error:function(data){
-        alert("無新增、更新");
+        alert("無新增、更新資料");
       },
     });
   }
@@ -78,7 +90,15 @@
       type:"POST",
       url:"./qry.php",
       dataType:"json",
-      success:showval,
+      success:function(data){
+        showval(data);
+      },
+      beforeSend:function(){
+        $('#loadingIMG').show();
+      },
+      complete:function(){
+        $('#loadingIMG').hide();
+      },
       error:function(data){
         alert("本期竞猜已结束");
       },
@@ -92,9 +112,17 @@
       url:"./qry.php",
       data: $('#search').serialize(),  //id = search : 搜尋表單，送出搜尋條件 serialize():序列化表單
       dataType:"json",
-      success:showval,
+      success:function(data){
+        showval(data);
+      },
+      beforeSend:function(){
+        $('#loadingIMG').show();
+      },
+      complete:function(){
+        $('#loadingIMG').hide();
+      },
       error:function(data){
-        alert("無資料");
+        alert("請輸入條件");
       },
     });
   }
@@ -107,14 +135,15 @@
     var nowPrintAlz = "";  //判斷是新增或更新
     var info = "";          //存字串
     var raceColor = {                       //存賽事顏色
-                  "阿根廷杯"  : "#336699",
-                  "国际赛" : "#327E7C",
-                  "世界杯预" : "#336600",
-                  "巴西甲" : "#336699",
-                  "世青赛" : "#C58788",
-                  "J2联赛" : "#22C126",
-                  "亚洲杯预" : "#37BE5A",
-                };     
+                      "阿根廷杯"  : "#336699",
+                      "国际赛" : "#327E7C",
+                      "世界杯预" : "#336600",
+                      "巴西甲" : "#336699",
+                      "世青赛" : "#C58788",
+                      "J2联赛" : "#22C126",
+                      "亚洲杯预" : "#37BE5A",
+                      "美公开杯" : "#B00900",
+                    };     
      
       
     for(i=0;i<data.length;i++){
@@ -188,7 +217,7 @@
                '<span>负 '+ data[i]["defeat"] +'</span>';
       }
                             
-      info +=  '<span>胜 '+ data[i]["victory1"] +'</span>'+
+      info +=   '<span>胜 '+ data[i]["victory1"] +'</span>'+
                 '<span>平 '+ data[i]["draw1"] +' </span>'+
                 '<span>负 '+ data[i]["defeat1"] +'</span>'+                  
                '</td>'+
