@@ -1,0 +1,164 @@
+smarty官網:http://www.smarty.net/docs/zh_CN/
+
+安裝
+  假設apache網頁跟目錄為 c:\www
+  1.在跟目錄底下建立 smarty 資料夾
+    c:\www\smarty
+  2.下載Smarty-2.6.20.zip,解壓裡面的libs到網頁根目錄
+    ex: c:\www\smarty\libs
+  3.並在smarty目錄裡新建4個目錄，分別為templates、templates_c、configs和cache
+    c:\www\smarty\
+    目錄解釋：
+    \cache---------範本緩存目錄
+    \configs-------config檔目錄
+    \templates-----範本目錄
+    \templates_c---編譯目錄
+    \library\internals-----內建函式目錄
+    \library\plugins-------外部外掛程式目錄
+    --------------------------------
+  4.在smarty目錄裡新建一個config.php檔
+    c:\www\smarty\config.php
+
+    config.php 內容:
+      <?php
+    　　require './libs/Smarty.class.php';
+    　　$smarty = new Smarty();//設置各個目錄的路徑
+    　　$smarty->template_dir ="smarty/templates/templates";
+    　　$smarty->compile_dir ="smarty/templates/templates_c";
+    　　$smarty->config_dir = "smarty/templates/config";
+    　　$smarty->cache_dir ="smarty/templates/cache";
+      ?>
+
+      
+使用Smarty方法
+  
+  1.在templates資料夾下新建一個test.html樣板
+    
+    c:\www\smarty\templates\test.html
+   
+    <html>
+        ....
+      <body>
+        {$yourName}   //變數{$yourName} :要更換的內容
+      </body>
+    </html>
+  
+  2.在主資料夾下新建一個test.php      
+    
+    c:\www\smarty\test.php
+    
+    <?php
+      require "config.php"; //載入設定檔
+      $name = '到底會不會教ㄚㄚㄚㄚㄚ';
+      $smarty->assign("yourName",$name);  //assign()—設定樣板中變數 yourName 的值
+      $smarty->display("test.html");  //display() — 顯示網頁
+    ?>　
+  
+  3. http://localhost/smarty/test.php 執行php檔案
+  
+
+函數
+  重覆的區塊 foreach & section
+  
+  1.test2.php
+    <?php
+      require "config.php";
+      $array1 = array(1 => "AA", 2 => "BB", 3 => "CC", 4 => "DD");
+      $smarty->assign("array1", $array1);
+      $smarty->display("test2.html");
+    ?>
+
+  
+  2.templates/test2.html 樣版的寫法
+  
+    <html>
+      <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>測試重覆區塊</title>
+      </head>
+      <body>
+        //利用 foreach 來呈現 array1
+        {foreach item=item1 from=$array1}
+          {$item1}
+        {/foreach}
+        
+        //利用 section 來呈現 array1
+        {section name=sec1 loop=$array1}
+          {$array1[sec1]}
+        {/section}
+      </body>
+    </html>
+  
+  -------------------------------------------------
+  {literal}
+    在{literal}...{/literal}内的任何標籤都不會被解析，原樣输出，可以放javascript,css。
+  
+  {while} 循環
+    {while $foo > 0}
+      {$foo--}
+    {/while}
+   
+  {for}
+    1.
+      {for $foo=1 to 3}
+        <li>{$foo}</li>
+      {/for}
+    2.使用max 属性
+      $smarty->assign('to',10);
+      -------------
+      {for $foo=3 to $to max=3}
+        {$foo}
+      {/for}
+ 
+  {if}
+    1.
+      {if $name == 'Fred'}
+          Welcome Sir.
+      {elseif $name == 'Wilma'}
+          Welcome Ma'am.
+      {else}
+          Welcome, whatever you are.
+      {/if}  
+    2.
+      {* check for not null. *}
+        {if isset($foo) }
+           .....
+        {/if}
+
+        
+Smarty成員方法  
+  assign() - 設定樣板變數的值
+    $smarty->assign('Name', 'Fred');
+  
+  display() — 顯示網頁
+    $smarty->display('index.tpl');
+    
+    
+模板繼承  
+  1.新建一個主要模板 layout.tpl
+    templates/layout.tpl(主要模板)
+      <html>
+        <head>
+          <title>{block name=title}默认页面标题{/block}</title>
+          {block name=head}{/block}
+        </head>
+        <body>
+          {block name=body}{/block}
+        </body>
+      </html>
+    //{block}{/block}:改變的區域 name:block的id
+  
+  2.新建一個子模板 myproject.tpl
+    templates/myproject.tpl (子模板)
+      {extends file='layout.tpl'}     //第一行繼承主模板
+      {block name=head}               //只能改變 block區域
+        <link href="/css/mypage.css" rel="stylesheet" type="text/css"/>
+        <script src="/js/mypage.js"></script>
+      {/block}
+  
+  3.test3.php 執行檔 
+    test3.php 顯示上面模板
+      <?php
+        require "config.php";
+        $smarty->display("myproject.tpl");  //顯示子模板
+      ?>

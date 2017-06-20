@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 3.1.32-dev-11, created on 2017-06-20 16:51:55
-  from "C:\xampp\htdocs\smartylottery\templates\lottery.html" */
+/* Smarty version 3.1.32-dev-11, created on 2017-06-20 13:39:17
+  from "C:\xampp\htdocs\smartylottery\templates\test1.html" */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '3.1.32-dev-11',
-  'unifunc' => 'content_5948e22beddd55_36511426',
+  'unifunc' => 'content_5948b50594f816_68908026',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
-    'f9a04f56eaf9d6fbeddb4d732ea237950818736c' => 
+    '8f3825c621bc7d461c35e2bdc989e8e93d0b053a' => 
     array (
-      0 => 'C:\\xampp\\htdocs\\smartylottery\\templates\\lottery.html',
-      1 => 1497948710,
+      0 => 'C:\\xampp\\htdocs\\smartylottery\\templates\\test1.html',
+      1 => 1497937149,
       2 => 'file',
     ),
   ),
@@ -20,33 +20,32 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_5948e22beddd55_36511426 (Smarty_Internal_Template $_smarty_tpl) {
+function content_5948b50594f816_68908026 (Smarty_Internal_Template $_smarty_tpl) {
+$_smarty_tpl->_loadInheritance();
+$_smarty_tpl->inheritance->init($_smarty_tpl, true);
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-	<title>足球天天竞猜 - 参加足球竞猜游戏赢好礼 | 酷发巴巴彩票网</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <link rel="stylesheet" type="text/css" href="./mycss.css">
-  <?php echo '<script'; ?>
- src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"><?php echo '</script'; ?>
->
-</head>
-<body>
-  <div class="contentWrap">
-    <table class="gameTable">
-      <thead>
-        <tr>
-          <th width="100" class="bl3">赛事</th>
-          <th width="200">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;主队&nbsp;&nbsp;&nbsp;vs&nbsp;&nbsp;&nbsp;客队&nbsp;&nbsp;</th>
-          <th width="80">截止</th>
-          <th>让球</th>
-          <th width="300">主胜&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;平局&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;客胜</th>
-          <th width="150" class="br3">竞猜人数</th>
-        </tr>
-     </thead>
-      <tbody>
-      <?php
+
+<?php 
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_14284475295948b5058f7127_98872092', 'tbody');
+?>
+
+<?php 
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_1910589325948b50594e277_74081198', 'script');
+$_smarty_tpl->inheritance->endChild($_smarty_tpl, 'test.html');
+}
+/* {block 'tbody'} */
+class Block_14284475295948b5058f7127_98872092 extends Smarty_Internal_Block
+{
+public $subBlocks = array (
+  'tbody' => 
+  array (
+    0 => 'Block_14284475295948b5058f7127_98872092',
+  ),
+);
+public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
+?>
+
+  <?php
 $__section_sec1_0_saved = isset($_smarty_tpl->tpl_vars['__smarty_section_sec1']) ? $_smarty_tpl->tpl_vars['__smarty_section_sec1'] : false;
 $__section_sec1_0_loop = (is_array(@$_loop=$_smarty_tpl->tpl_vars['forum']->value) ? count($_loop) : max(0, (int) $_loop));
 $__section_sec1_0_total = $__section_sec1_0_loop;
@@ -73,9 +72,13 @@ for ($__section_sec2_1_iteration = 1, $_smarty_tpl->tpl_vars['__smarty_section_s
 ?>
           <tr class="moreContent more<?php echo $_smarty_tpl->tpl_vars['forum']->value[(isset($_smarty_tpl->tpl_vars['__smarty_section_sec1']->value['index']) ? $_smarty_tpl->tpl_vars['__smarty_section_sec1']->value['index'] : null)]['more'];?>
 " style="display: table-row">
-              <td><span class="leagueName" style='background-color: <?php echo $_smarty_tpl->tpl_vars['forum']->value[(isset($_smarty_tpl->tpl_vars['__smarty_section_sec1']->value['index']) ? $_smarty_tpl->tpl_vars['__smarty_section_sec1']->value['index'] : null)]['raceColor'][$_smarty_tpl->tpl_vars['forum']->value[(isset($_smarty_tpl->tpl_vars['__smarty_section_sec1']->value['index']) ? $_smarty_tpl->tpl_vars['__smarty_section_sec1']->value['index'] : null)]['item'][(isset($_smarty_tpl->tpl_vars['__smarty_section_sec2']->value['index']) ? $_smarty_tpl->tpl_vars['__smarty_section_sec2']->value['index'] : null)]['race']];?>
-; color: #FFFFFF'><?php echo $_smarty_tpl->tpl_vars['forum']->value[(isset($_smarty_tpl->tpl_vars['__smarty_section_sec1']->value['index']) ? $_smarty_tpl->tpl_vars['__smarty_section_sec1']->value['index'] : null)]['item'][(isset($_smarty_tpl->tpl_vars['__smarty_section_sec2']->value['index']) ? $_smarty_tpl->tpl_vars['__smarty_section_sec2']->value['index'] : null)]['race'];?>
-</span></td>
+              <td>
+                <span class="leagueName" style='background-color: <?php echo $_smarty_tpl->tpl_vars['forum']->value[(isset($_smarty_tpl->tpl_vars['__smarty_section_sec1']->value['index']) ? $_smarty_tpl->tpl_vars['__smarty_section_sec1']->value['index'] : null)]['raceColor'][$_smarty_tpl->tpl_vars['forum']->value[(isset($_smarty_tpl->tpl_vars['__smarty_section_sec1']->value['index']) ? $_smarty_tpl->tpl_vars['__smarty_section_sec1']->value['index'] : null)]['item'][(isset($_smarty_tpl->tpl_vars['__smarty_section_sec2']->value['index']) ? $_smarty_tpl->tpl_vars['__smarty_section_sec2']->value['index'] : null)]['race']];?>
+; color: #FFFFFF'>
+                  <?php echo $_smarty_tpl->tpl_vars['forum']->value[(isset($_smarty_tpl->tpl_vars['__smarty_section_sec1']->value['index']) ? $_smarty_tpl->tpl_vars['__smarty_section_sec1']->value['index'] : null)]['item'][(isset($_smarty_tpl->tpl_vars['__smarty_section_sec2']->value['index']) ? $_smarty_tpl->tpl_vars['__smarty_section_sec2']->value['index'] : null)]['race'];?>
+
+                </span>
+              </td>
               <td class="name">
                 <span class="ht"><?php echo $_smarty_tpl->tpl_vars['forum']->value[(isset($_smarty_tpl->tpl_vars['__smarty_section_sec1']->value['index']) ? $_smarty_tpl->tpl_vars['__smarty_section_sec1']->value['index'] : null)]['item'][(isset($_smarty_tpl->tpl_vars['__smarty_section_sec2']->value['index']) ? $_smarty_tpl->tpl_vars['__smarty_section_sec2']->value['index'] : null)]['host'];?>
 </span>
@@ -133,20 +136,33 @@ $_smarty_tpl->tpl_vars['__smarty_section_sec2'] = $__section_sec2_1_saved;
 if ($__section_sec1_0_saved) {
 $_smarty_tpl->tpl_vars['__smarty_section_sec1'] = $__section_sec1_0_saved;
 }
+}
+}
+/* {/block 'tbody'} */
+/* {block 'script'} */
+class Block_1910589325948b50594e277_74081198 extends Smarty_Internal_Block
+{
+public $subBlocks = array (
+  'script' => 
+  array (
+    0 => 'Block_1910589325948b50594e277_74081198',
+  ),
+);
+public function callBlock(Smarty_Internal_Template $_smarty_tpl) {
 ?>
-      </tbody>
-    </table>
-  </div>
-</body>
-</html>
- 
-<?php echo '<script'; ?>
+
+   
+    <?php echo '<script'; ?>
  language="javascript" type="text/javascript">
-    function clickMore(id){
-      $(".more"+id).toggle( );
-      $("#arrow"+id).toggleClass( "arrow1" ); 
-    }   
-<?php echo '</script'; ?>
+        function clickMore(id){
+          $(".more"+id).toggle( );
+          $("#arrow"+id).toggleClass( "arrow1" ); 
+        }   
+    <?php echo '</script'; ?>
 >
-<?php }
+  
+<?php
+}
+}
+/* {/block 'script'} */
 }

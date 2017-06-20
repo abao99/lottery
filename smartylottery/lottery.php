@@ -37,6 +37,10 @@
                      '联合会杯' => '#FF9900',
                      '欧青赛' => '#1b5a89',
                      '挪超' => '#CC631D',
+                     '阿甲' => '#0CB9E4',
+                     '日天皇杯' => '#003306',
+                     'K联赛' => '#15DBAE',
+                     '美职' => '#7D3052',
                      );
  
   $data=array();
@@ -50,8 +54,8 @@
       $more++;
       $nowPrintDate = $row["date"];
       $data["date"]=$row["date"]; 
-      $data["more"]="more".$more;
-      $data["arrow"]="arrow".$more;
+      $data["raceColor"]=$raceColor;
+      $data["more"]=$more;
       
       array_push($resultdata,$data);
     }

@@ -1,26 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>足球天天竞猜 - 参加足球竞猜游戏赢好礼 | 酷发巴巴彩票网</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <link rel="stylesheet" type="text/css" href="./mycss.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-</head>
-<body>
-  <div class="contentWrap">
-    <table class="gameTable">
-      <thead>
-        <tr>
-          <th width="100" class="bl3">赛事</th>
-          <th width="200">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;主队&nbsp;&nbsp;&nbsp;vs&nbsp;&nbsp;&nbsp;客队&nbsp;&nbsp;</th>
-          <th width="80">截止</th>
-          <th>让球</th>
-          <th width="300">主胜&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;平局&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;客胜</th>
-          <th width="150" class="br3">竞猜人数</th>
-        </tr>
-     </thead>
-      <tbody>
-      {section name=sec1 loop=$forum}
+{extends file='test.html'}
+{block name=tbody}
+  {section name=sec1 loop=$forum}
         
         <tr class="more expanded" id="more{$forum[sec1].more}" style="border-top: 0;" onclick="clickMore({$forum[sec1].more})">
             <td colspan="6" class = "pointer"><span id="arrow{$forum[sec1].more}" class="arrow"></span>{$forum[sec1].date} 每次竞猜选择一个选项下注</td>
@@ -28,7 +8,11 @@
         
         {section name=sec2 loop=$forum[sec1].item}
           <tr class="moreContent more{$forum[sec1].more}" style="display: table-row">
-              <td><span class="leagueName" style='background-color: {$forum[sec1].raceColor[$forum[sec1].item[sec2].race]}; color: #FFFFFF'>{$forum[sec1].item[sec2].race}</span></td>
+              <td>
+                <span class="leagueName" style='background-color: {$forum[sec1].raceColor[$forum[sec1].item[sec2].race]}; color: #FFFFFF'>
+                  {$forum[sec1].item[sec2].race}
+                </span>
+              </td>
               <td class="name">
                 <span class="ht">{$forum[sec1].item[sec2].host}</span>
                 <span class="vs">vs</span>
@@ -60,16 +44,14 @@
           </tr>
         {/section}
       {/section}
-      </tbody>
-    </table>
-  </div>
-</body>
-</html>
-{literal} 
-<script language="javascript" type="text/javascript">
-    function clickMore(id){
-      $(".more"+id).toggle( );
-      $("#arrow"+id).toggleClass( "arrow1" ); 
-    }   
-</script>
-{/literal}
+{/block}
+{block name=script}
+  {literal} 
+    <script language="javascript" type="text/javascript">
+        function clickMore(id){
+          $(".more"+id).toggle( );
+          $("#arrow"+id).toggleClass( "arrow1" ); 
+        }   
+    </script>
+  {/literal}
+{/block}
