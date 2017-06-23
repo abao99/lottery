@@ -1,0 +1,23 @@
+Design-pattern
+  類別開放便於擴充，對修改關閉
+  可能的變化，獨立出來封裝
+  降低各類別相依性
+  固定的流程 封裝成靜態方法
+  針對接口編成針對實現編成
+  多用組合，少用繼承
+  
+策略模式(Strategy) https://dotblogs.com.tw/joysdw12/archive/2013/03/07/95769.aspx
+  同一個動作有多種變化
+  把可能的變化獨立出來，最後合成
+  
+觀察者模式(Observer) https://dotblogs.com.tw/joysdw12/2013/03/13/96531
+  一對多， 一個物件(主題)改變 ，其他(觀察者)會收到通知，
+  主題跟觀察者都可以任意做改變，不會影響到另一方
+
+簡單工廠模式(Simple Factory) https://dotblogs.com.tw/joysdw12/2013/06/23/design-pattern-simple-factory-pattern
+  物件生成方式，與客戶端程式隔離
+  封裝創建過程
+
+裝飾者模式 (Decorate) https://dotblogs.com.tw/joysdw12/2013/04/08/100986
+  物件由各種裝飾物件搭配組合而成
+  先做好每個裝飾類別，組合需要的裝飾類別成新物件

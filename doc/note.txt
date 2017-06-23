@@ -135,5 +135,142 @@ callback
   http://dreamerslab.com/blog/tw/javascript-callbacks/
   //Understanding callback functions in Javascript
   http://recurial.com/programming/understanding-callback-functions-in-javascript/
+
+==========================
+進階
+
+●php
+  ‧cookie
+  ‧session
+      session_start();
+      echo $_SESSION['animal'];   // cat
+    Cookie 和 Session 的神秘關係
+    http://blog.andikan.me/2012/10/03/cookie-and-session/
+  ‧class
+   PHP 入門指南 - 類別
+     http://pydoing.blogspot.tw/2012/11/PHP-Class.html
+   [程式][PHP] 透過PHP 寫出物件導向程式基礎教學－Part 3 如何定義成員函數跟屬性！
+     http://expect7.pixnet.net/blog/post/38697222-%5B%E7%A8%8B%E5%BC%8F%5D%5Bphp%5D-%E9%80%8F%E9%81%8Ephp-%E5%AF%AB%E5%87%BA%E7%89%A9%E4%BB%B6%E5%B0%8E%E5%90%91%E7%A8%8B%E5%BC%8F%E5%9F%BA%E7%A4%8E%E6%95%99%E5%AD%B8
+  ‧gateway
+  ‧md5, sha256     
+    <?php   //加密
+      $pw = '948794狂'.'no~~~';
+      $pw = md5(substr(sha1($pw),3,21).substr(sha1($pw),-11,10));
+      $sql = "insert into user set (id,pw) values ('".$id."','".$pw."')";
+    ?>
+ 
+●sql
+  Storage engine
+    http://www.codedata.com.tw/database/mysql-tutorial-8-storage-engine-datatype/
+  日期查詢效率比較的參考
+    http://gpshumano.blogs.dri.pt/2009/07/06/mysql-datetime-vs-timestamp-vs-int-performance-and-%20%20%20%20%20%20%20benchmarking-with-myisam/
+  db function
+    http://pcclass.cc.nthu.edu.tw/nuke/dbms.php?filename=function.html
+  limit
+  
+  [user] uid
+  [sla]  uid
+
+  select * from user,sla where user.uid=sla.uid and user.uname='jack'
+  
+  join
+    full join
+      select * from user,sla
+    left join
+      select * from user left join sla on (user.uid=sla.uid and sla.mon=6)
+    right join
+  union
+    SELECT race FROM `game` WHERE date = '2017-06-07'
+    union all
+    SELECT race FROM `game` WHERE date = '2017-06-08'
+  
+  case when 用法
+    方法一.case when ... then ... else ... end xxx
+                  SELECT 
+                    case when concede='-1' then '負的' 
+                         when date>'2017-06-10' then '假的'
+                         else '正的' 
+                         end ncon FROM `game`
+    方法二.case ... 
+             when ... then ... 
+             when ... then ...
+             else ...
+             end xxx
+             
+                  SELECT 
+                    case concede when '-1' then '負1' 
+                                 when '+1' then '正1'
+                                 else '都不是'
+                                 end ncon 
+                  FROM `game`
+  in
+    select * from game where date in ('2017-06-09','2017-06-11')
+  子sql
+    select * from game where id in (SELECT id FROM `game` WHERE concede = '-1')
+  view
+  trigger
+    http://www.codedata.com.tw/database/mysql-stored-routines-trigger-event/
+  stored procedures
+   http://www.codedata.com.tw/database/mysql-tutorial-13-stored-routines/
+●security
+  ‧sql inject
+    SQL Injection 常見的駭客攻擊方式
+    http://www.puritys.me/docs-blog/article-11-SQL-Injection-%E5%B8%B8%E8%A6%8B%E7%9A%84%E9%A7%AD%E5%AE%A2%E6%94%BB%E6%93%8A%E6%96%B9%E5%BC%8F.html
+    PHP之magic_quotes_gpc的美麗與哀愁
+    http://ithelp.ithome.com.tw/articles/10113856
+    
+    搜尋輸入 ' or 'a'='a
+
+    <?php
+      
+      phpinfo();//看資訊
+      exit; 
+      -----------------------
+      error_reporting(0);
+      
+      $n = $_POST['n'];
+      ----------------------------------------------------- sql inject避免方式
+      $n = addslashes($_POST['n']);     //字串
+      echo $sql = "select * from tmp where id=".(int)$_POST['id'];  //數字
+      -----------------------------------------------------
+      $con = mysqli_connect("localhost", "root", "", "test");
+      $con->query("SET NAMES utf8");  //要用這個方式指定 utf8
+      echo $sql = "select * from tmp where name = '".$n."'";
+      echo '<hr>';
+      $result = mysqli_query($con,$sql);
+      while($row = mysqli_fetch_array($result)) {
+        $list .= '<tr><td>'.$row['id'].'</td><td>'.$row['name'].'</td></tr>';
+      }
+
+    ?>
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <title>Page Title</title>
+    </head>
+    <body>
+
+      <form name="form_chk" method="POST" action="ccc.php">
+        姓名:<input type="text" name="n" value="<?php echo $n; ?>">&nbsp;&nbsp;<input type="submit" value="查詢">
+      </form>
+
+      <table width="500" border="1">
+        <?php
+          echo $list;
+        ?>
+      </table>
+
+    </body>
+    </html>
+  ‧command injection
+    WWW攻擊技術
+    http://jck11.pixnet.net/blog/post/7483574-www%E6%94%BB%E6%93%8A%E6%8A%80%E8%A1%93
+  ‧file upload
+    隱藏在圖片中的惡魔：揭秘「數字隱寫術」工作原理
+    https://read01.com/8d2g5Q.html
+
+    圖像隱碼術(Steganography)與惡意程式：原理和方法
+    http://blog.trendmicro.com.tw/?p=12510
   
     

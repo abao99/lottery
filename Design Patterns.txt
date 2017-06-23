@@ -1,0 +1,15 @@
+Pattern
+  一再重複出現的東西、事件、現 象，就稱為模式
+  
+模式的六大基本元素
+  • Name : 樣式名稱，增加開發者的設計字彙
+  • Context: 描述問題發生的地形地物(美容前)
+  • Problem: 描述問題本身
+  • Force: 問題的限制或特性
+  • Solution: 解決問題的方法
+  • Resulting Context (Consequence): 套用解決方 案之後的結果(美容後)
+  
+參考
+  1.http://monkeycoding.com/?page_id=899
+  2.https://openhome.cc/Gossip/DesignPattern/
+  3.https://dotblogs.com.tw/joysdw12/2013/03/13/96531
