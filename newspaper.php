@@ -1,6 +1,6 @@
 <?php
   interface observer{
-    public function Update($msg);
+    public function Update();
   }
   
   abstract class Subject{
@@ -18,10 +18,13 @@
       print_r($this->Observer);
     }
     public function remove(observer $name){
+      $index = array_search($name,$this->Observer);
       unset($this->Observer[$name]);
     }
-    public function notify(observer $name){
-      $name-> Update("new one...");
+    public function notify(){
+      foreach($this->Observer as $name){
+          $name-> Update();
+      }  
     }
   }
   
@@ -32,8 +35,8 @@
       $this->Cname = $name;
     }
     
-    public function Update($msg){
-      echo $this->Cname." update News ".$msg."<br>";
+    public function Update(){
+      echo $this->Cname." update News<br>";
     }
   }
   
@@ -41,5 +44,9 @@
   
   $lin = new customer("lin");
   $office->register($lin);
+  $office->notify();
+  
+  $abao = new customer("abao");
+  $office->register($abao);
   $office->notify();
 ?>
